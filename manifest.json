@@ -8,6 +8,13 @@
   "background_color": "#1a237e",
   "theme_color": "#1a237e",
   "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Clock Widget",
+      "url": "/?mode=widget",
+      "description": "Open as widget"
+    }
+  ],
   "icons": [
     {
       "src": "icon-192.svg",
