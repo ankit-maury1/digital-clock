@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Clock Animation</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div id="time">
+      <div id="hours" class="clock-element">
+        <div class="circle">
+          <svg>
+            <circle cx="70" cy="70" r="70" fill="transparent" stroke="#4b4b4b" stroke-width="8"></circle>
+            <circle cx="70" cy="70" r="65" fill="#2972ff"></circle>
+          </svg>
+        </div>
+        <div class="time-text">Hours</div>
+      </div>
+      <div id="minutes" class="clock-element">
+        <div class="circle">
+          <svg>
+            <circle cx="70" cy="70" r="70" fill="transparent" stroke="#4b4b4b" stroke-width="8"></circle>
+            <circle cx="70" cy="70" r="65" fill="#ffc83d"></circle>
+          </svg>
+        </div>
+        <div class="time-text">Minutes</div>
+      </div>
+      <div id="seconds" class="clock-element">
+        <div class="circle">
+          <svg>
+            <circle cx="70" cy="70" r="70" fill="transparent" stroke="#4b4b4b" stroke-width="8"></circle>
+            <circle cx="70" cy="70" r="65" fill="#ff5757"></circle>
+          </svg>
+        </div>
+        <div class="time-text">Seconds</div>
+      </div>
+      <div class="ap">
+        <span id="ampm">AM</span>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
