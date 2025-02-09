@@ -4,8 +4,10 @@
   "description": "A modern minimalist digital clock with animated circular elements",
   "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#1a237e",
   "theme_color": "#1a237e",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "icon-192.svg",
