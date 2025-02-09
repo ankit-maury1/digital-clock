@@ -2,8 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a237e">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="A modern minimalist digital clock with animated circular elements">
     <title>Minimalist Digital Clock</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/svg+xml" href="/icon-192.svg">
+    <link rel="apple-touch-icon" href="/icon-192.svg">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -18,7 +26,7 @@
                 <div class="label">Hours</div>
                 <div class="value">12</div>
             </div>
-            
+
             <div class="clock-element minutes">
                 <div class="circle">
                     <div class="hand minute-hand"></div>
@@ -27,7 +35,7 @@
                 <div class="label">Minutes</div>
                 <div class="value">12</div>
             </div>
-            
+
             <div class="clock-element seconds">
                 <div class="circle">
                     <div class="hand second-hand"></div>
@@ -38,6 +46,9 @@
             </div>
         </div>
         <div class="period">PM</div>
+    </div>
+    <div class="installation-prompt">
+        Add to Home Screen for the best experience
     </div>
     <script src="script.js"></script>
 </body>
