@@ -1,34 +1,56 @@
-function updateClock() {
-  const now = new Date();
-  const hours = now.getHours() % 12; // 12-hour format
-  const minutes = now.getMinutes();
-  const seconds = now.getSeconds();
-  const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+class Clock {
+    constructor() {
+        this.hoursHand = document.querySelector('.hours-hand');
+        this.minutesHand = document.querySelector('.minutes-hand');
+        this.secondsHand = document.querySelector('.seconds-hand');
+        this.amPmIndicator = document.querySelector('.am-pm-indicator');
+        
+        this.init();
+    }
 
-  const hourHand = document.querySelector('#hours svg circle:nth-child(2)');
-  const minuteHand = document.querySelector('#minutes svg circle:nth-child(2)');
-  const secondHand = document.querySelector('#seconds svg circle:nth-child(2)');
+    init() {
+        // Initial update
+        this.updateClock();
+        
+        // Start the animation loop
+        requestAnimationFrame(() => this.animate());
+    }
 
-  const hourRotation = (hours * 30) + (minutes * 0.5); // 360 / 12 = 30 degrees per hour, 0.5 per minute
-  const minuteRotation = (minutes * 6) + (seconds * 0.1); // 360 / 60 = 6 degrees per minute, 0.1 per second
-  const secondRotation = seconds * 6; // 360 / 60 = 6 degrees per second
+    updateClock() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        const milliseconds = now.getMilliseconds();
 
-  // Apply rotation to clock hands
-  hourHand.style.transform = `rotate(${hourRotation - 90}deg)`;
-  minuteHand.style.transform = `rotate(${minuteRotation - 90}deg)`;
-  secondHand.style.transform = `rotate(${secondRotation - 90}deg)`;
+        // Calculate precise angles for smooth movement
+        const hoursAngle = (hours % 12 + minutes / 60) * 30;
+        const minutesAngle = (minutes + seconds / 60) * 6;
+        const secondsAngle = (seconds + milliseconds / 1000) * 6;
 
-  // Update AM/PM text and smooth transition
-  const ampmElement = document.getElementById('ampm');
-  ampmElement.textContent = ampm;
-  ampmElement.style.opacity = 0;
-  setTimeout(() => {
-    ampmElement.style.opacity = 1;
-  }, 100); // Smooth fade-in effect
+        // Apply rotations
+        this.hoursHand.style.transform = `rotate(${hoursAngle}deg)`;
+        this.minutesHand.style.transform = `rotate(${minutesAngle}deg)`;
+        this.secondsHand.style.transform = `rotate(${secondsAngle}deg)`;
+
+        // Update AM/PM indicator
+        const isAM = hours < 12;
+        this.amPmIndicator.textContent = isAM ? 'AM' : 'PM';
+        this.amPmIndicator.classList.add('visible');
+
+        // Update indicator visibility
+        if (!this.amPmIndicator.classList.contains('visible')) {
+            this.amPmIndicator.classList.add('visible');
+        }
+    }
+
+    animate() {
+        this.updateClock();
+        requestAnimationFrame(() => this.animate());
+    }
 }
 
-// Initial clock update
-updateClock();
-
-// Update the clock every second
-setInterval(updateClock, 1000);
+// Initialize the clock when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new Clock();
+});
