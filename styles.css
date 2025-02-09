@@ -1,102 +1,137 @@
-/* Resetting default styles */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background: linear-gradient(135deg, #1a237e, #4a148c);
-  font-family: 'Roboto', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  color: white;
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1a237e 0%, #4a148c 100%);
+    color: #ffffff;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.clock-container {
+    text-align: center;
+    padding: 2rem;
 }
 
-#time {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
+.clock-wrapper {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 .clock-element {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
 
 .circle {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  margin: 0 auto;
-}
-
-svg {
-  width: 100%;
-  height: 100%;
-}
-
-circle {
-  transform: rotate(-90deg); /* Align with the top of the circle */
-}
-
-.time-text {
-  text-align: center;
-  font-size: 1.1rem;
-  margin-top: 12px;
-  font-weight: bold;
-}
-
-.ap {
-  margin-top: 15px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-/* Responsive Design for smaller screens */
-@media (max-width: 600px) {
-  #time {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .circle {
-    width: 120px;
-    height: 120px;
-  }
-
-  .time-text {
-    font-size: 1rem;
-  }
-
-  .ap {
-    font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 400px) {
-  .circle {
     width: 100px;
     height: 100px;
-  }
-  .time-text {
-    font-size: 0.9rem;
-  }
-  .ap {
-    font-size: 1rem;
-  }
+    border-radius: 50%;
+    position: relative;
+}
+
+.hours .circle {
+    border: 2px solid #2196f3;
+    box-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+}
+
+.minutes .circle {
+    border: 2px solid #ffeb3b;
+    box-shadow: 0 0 10px rgba(255, 235, 59, 0.3);
+}
+
+.seconds .circle {
+    border: 2px solid #f44336;
+    box-shadow: 0 0 10px rgba(244, 67, 54, 0.3);
+}
+
+.hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom;
+    width: 2px;
+    transition: transform 0.3s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+}
+
+.hour-hand {
+    height: 35%;
+    background-color: #2196f3;
+}
+
+.minute-hand {
+    height: 40%;
+    background-color: #ffeb3b;
+}
+
+.second-hand {
+    height: 45%;
+    background-color: #f44336;
+}
+
+.dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.hours .dot {
+    background-color: #2196f3;
+}
+
+.minutes .dot {
+    background-color: #ffeb3b;
+}
+
+.seconds .dot {
+    background-color: #f44336;
+}
+
+.label {
+    font-size: 0.875rem;
+    font-weight: 300;
+    opacity: 0.8;
+    text-transform: uppercase;
+}
+
+.value {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.period {
+    font-size: 1.25rem;
+    font-weight: 400;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+@media (max-width: 480px) {
+    .clock-wrapper {
+        flex-direction: column;
+    }
+    
+    .circle {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .value {
+        font-size: 1.25rem;
+    }
 }
