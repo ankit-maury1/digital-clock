@@ -1,0 +1,104 @@
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #1e2a47, #8f5cf7);
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+#time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+
+.clock-element {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  transform: rotate(90deg); /* Start rotation correctly */
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+}
+
+circle {
+  transform: rotate(-90deg); /* Set starting point at top */
+}
+
+.time-text {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+.ap {
+  margin-top: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  #time {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .circle {
+    width: 130px;
+    height: 130px;
+  }
+
+  .time-text {
+    font-size: 1rem;
+  }
+
+  .ap {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .circle {
+    width: 100px;
+    height: 100px;
+  }
+  .time-text {
+    font-size: 0.9rem;
+  }
+  .ap {
+    font-size: 1.1rem;
+  }
+}
