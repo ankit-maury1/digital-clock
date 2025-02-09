@@ -1,54 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Digital Clock</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Digital Clock</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <div id="time">
-      <!-- Hour Circle -->
-      <div id="hours" class="clock-element">
-        <div class="circle">
-          <svg>
-            <circle cx="70" cy="70" r="70" fill="transparent" stroke="#4b4b4b" stroke-width="8"></circle>
-            <circle cx="70" cy="70" r="65" fill="#2196f3"></circle>
-          </svg>
+    <div class="clock-container">
+        <div class="clock-wrapper">
+            <div class="clock-element hours">
+                <div class="circle">
+                    <div class="hand hour-hand"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="label">Hours</div>
+                <div class="value">12</div>
+            </div>
+            
+            <div class="clock-element minutes">
+                <div class="circle">
+                    <div class="hand minute-hand"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="label">Minutes</div>
+                <div class="value">12</div>
+            </div>
+            
+            <div class="clock-element seconds">
+                <div class="circle">
+                    <div class="hand second-hand"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="label">Seconds</div>
+                <div class="value">59</div>
+            </div>
         </div>
-        <div class="time-text">Hours</div>
-      </div>
-
-      <!-- Minute Circle -->
-      <div id="minutes" class="clock-element">
-        <div class="circle">
-          <svg>
-            <circle cx="70" cy="70" r="70" fill="transparent" stroke="#4b4b4b" stroke-width="8"></circle>
-            <circle cx="70" cy="70" r="65" fill="#ffeb3b"></circle>
-          </svg>
-        </div>
-        <div class="time-text">Minutes</div>
-      </div>
-
-      <!-- Second Circle -->
-      <div id="seconds" class="clock-element">
-        <div class="circle">
-          <svg>
-            <circle cx="70" cy="70" r="70" fill="transparent" stroke="#4b4b4b" stroke-width="8"></circle>
-            <circle cx="70" cy="70" r="65" fill="#f44336"></circle>
-          </svg>
-        </div>
-        <div class="time-text">Seconds</div>
-      </div>
-
-      <!-- AM/PM indicator -->
-      <div class="ap">
-        <span id="ampm">AM</span>
-      </div>
+        <div class="period">PM</div>
     </div>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
