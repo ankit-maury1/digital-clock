@@ -2,16 +2,24 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     font-family: 'Roboto', sans-serif;
     min-height: 100vh;
+    min-height: -webkit-fill-available;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, #1a237e 0%, #4a148c 100%);
     color: #ffffff;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
 .clock-container {
@@ -121,17 +129,49 @@ body {
     transition: opacity 0.3s ease;
 }
 
+.installation-prompt {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    display: none;
+}
+
+@media (display-mode: standalone) {
+    .installation-prompt {
+        display: none !important;
+    }
+}
+
 @media (max-width: 480px) {
     .clock-wrapper {
-        flex-direction: column;
+        flex-direction: row;
+        gap: 12px;
     }
-    
+
     .circle {
         width: 80px;
         height: 80px;
     }
-    
+
     .value {
         font-size: 1.25rem;
+    }
+
+    .installation-prompt {
+        display: block;
+    }
+}
+
+@media (max-width: 360px) {
+    .circle {
+        width: 70px;
+        height: 70px;
     }
 }
