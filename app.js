@@ -109,7 +109,7 @@ class ChatApp {
         this.addMessage(botResponse, 'bot');
 
         // Speak the bot response
-        this.speakMessage(botResponse);
+        // this.speakMessage(botResponse);
 
     } catch (error) {
         console.error("Error fetching bot response:", error);
