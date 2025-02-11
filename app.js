@@ -79,23 +79,45 @@ class ChatApp {
         }
     }
 
-    async sendMessage() {
-        const content = this.messageInput.value.trim();
-        if (!content) return;
+ async sendMessage() {
+    const content = this.messageInput.value.trim();
+    if (!content) return;
 
-        this.addMessage(content, 'user');
-        this.messageInput.value = '';
+    // Add user message to chat
+    this.addMessage(content, 'user');
+    this.messageInput.value = '';
 
-        this.typingIndicator.classList.remove('hidden');
+    // Show typing indicator
+    this.typingIndicator.classList.remove('hidden');
 
-        await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+        // Call your backend API
+        const response = await fetch("https://fastapi-vercel-self.vercel.app/modelResponse", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                // "Authorization": "Bearer YOUR_API_KEY" // Replace with your actual API key
+            },
+            body: JSON.stringify({ message: content })
+        });
 
-        const botResponse = `Thanks for your message: "${content}"`;
+        const data = await response.json();
+        const botResponse = data.message || "Sorry, I couldn't understand that.";
+
+        // Hide typing indicator and display bot response
         this.typingIndicator.classList.add('hidden');
         this.addMessage(botResponse, 'bot');
 
+        // Speak the bot response
         this.speakMessage(botResponse);
+
+    } catch (error) {
+        console.error("Error fetching bot response:", error);
+        this.typingIndicator.classList.add('hidden');
+        this.addMessage("An error occurred. Please try again.", 'bot');
     }
+}
+
 
     addMessage(content, sender) {
         const messageDiv = document.createElement('div');
