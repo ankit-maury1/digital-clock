@@ -12,11 +12,9 @@ class ChatApp {
         this.recognition = null;
         this.isListening = false;
         this.isSpeaking = false;
-
         this.initializeEventListeners();
         this.setupSpeechRecognition();
     }
-
     initializeEventListeners() {
         this.chatButton.addEventListener('click', () => this.toggleChat(true));
         this.closeChat.addEventListener('click', () => this.toggleChat(false));
@@ -26,27 +24,23 @@ class ChatApp {
         });
         this.voiceButton.addEventListener('click', () => this.toggleVoiceInput());
     }
-
     setupSpeechRecognition() {
         if ('webkitSpeechRecognition' in window) {
             this.recognition = new webkitSpeechRecognition();
             this.recognition.continuous = false;
             this.recognition.interimResults = false;
-
             this.recognition.onresult = (event) => {
                 const transcript = event.results[0][0].transcript;
                 this.messageInput.value = transcript;
                 this.isListening = false;
                 this.voiceButton.classList.remove('active');
             };
-
             this.recognition.onend = () => {
                 this.isListening = false;
                 this.voiceButton.classList.remove('active');
             };
         }
     }
-
     toggleChat(show) {
         this.chatWindow.classList.toggle('hidden', !show);
         if (show) {
@@ -55,13 +49,11 @@ class ChatApp {
             this.chatWindow.classList.remove('visible');
         }
     }
-
     toggleVoiceInput() {
         if (!this.recognition) {
             console.error('Speech recognition not supported');
             return;
         }
-
         if (this.isListening) {
             this.recognition.stop();
             this.isListening = false;
@@ -72,21 +64,16 @@ class ChatApp {
             this.voiceButton.classList.add('active');
         }
     }
-
     async sendMessage() {
         const content = this.messageInput.value.trim();
         if (!content) return;
-
         // Add user message
         this.addMessage(content, 'user');
         this.messageInput.value = '';
-
         // Show typing indicator
         this.typingIndicator.classList.remove('hidden');
-
         // Simulate API delay
         await new Promise(resolve => setTimeout(resolve, 1500));
-
         // Bot response
         const botResponse = `Thanks for your message: "${content}"`;
         this.typingIndicator.classList.add('hidden');
@@ -95,7 +82,6 @@ class ChatApp {
         // Speak bot response
         this.speakMessage(botResponse);
     }
-
     addMessage(content, sender) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}`;
@@ -123,39 +109,22 @@ class ChatApp {
             soundButton.onclick = () => this.speakMessage(content);
             messageDiv.appendChild(soundButton);
         }
-
         this.messagesContainer.appendChild(messageDiv);
         this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
     }
-
-    speakMessage(text: string) {
-    if ('speechSynthesis' in window && !this.isSpeaking) {
-        const utterance = new SpeechSynthesisUtterance(text);
-
-        // Choose a better voice
-        const voices = speechSynthesis.getVoices();
-        utterance.voice = voices.find(voice => voice.lang.includes('en-US')) || voices[0];
-
-        // Adjust voice parameters for better clarity
-        utterance.pitch = 1.2;  // Adjust pitch (1 is normal, higher is sharper)
-        utterance.rate = 0.95;   // Slow down the speech slightly
-        utterance.volume = 1.0;  // Max volume for clear speech
-
-        // Set event listeners to track speech status
-        utterance.onstart = () => {
-            this.isSpeaking = true;
-        };
-        utterance.onend = () => {
-            this.isSpeaking = false;
-        };
-
-        // Speak the message
-        speechSynthesis.speak(utterance);
+    speakMessage(text) {
+        if ('speechSynthesis' in window && !this.isSpeaking) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.onstart = () => {
+                this.isSpeaking = true;
+            };
+            utterance.onend = () => {
+                this.isSpeaking = false;
+            };
+            speechSynthesis.speak(utterance);
+        }
     }
 }
-
-}
-
 // Initialize the chat app when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new ChatApp();
