@@ -128,18 +128,32 @@ class ChatApp {
         this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
     }
 
-    speakMessage(text) {
-        if ('speechSynthesis' in window && !this.isSpeaking) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.onstart = () => {
-                this.isSpeaking = true;
-            };
-            utterance.onend = () => {
-                this.isSpeaking = false;
-            };
-            speechSynthesis.speak(utterance);
-        }
+    speakMessage(text: string) {
+    if ('speechSynthesis' in window && !this.isSpeaking) {
+        const utterance = new SpeechSynthesisUtterance(text);
+
+        // Choose a better voice
+        const voices = speechSynthesis.getVoices();
+        utterance.voice = voices.find(voice => voice.lang.includes('en-US')) || voices[0];
+
+        // Adjust voice parameters for better clarity
+        utterance.pitch = 1.2;  // Adjust pitch (1 is normal, higher is sharper)
+        utterance.rate = 0.95;   // Slow down the speech slightly
+        utterance.volume = 1.0;  // Max volume for clear speech
+
+        // Set event listeners to track speech status
+        utterance.onstart = () => {
+            this.isSpeaking = true;
+        };
+        utterance.onend = () => {
+            this.isSpeaking = false;
+        };
+
+        // Speak the message
+        speechSynthesis.speak(utterance);
     }
+}
+
 }
 
 // Initialize the chat app when the DOM is loaded
