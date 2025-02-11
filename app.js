@@ -8,39 +8,52 @@ class ChatApp {
         this.messagesContainer = document.getElementById('chatMessages');
         this.voiceButton = document.getElementById('voiceInput');
         this.typingIndicator = document.getElementById('typingIndicator');
-        
+
         this.recognition = null;
         this.isListening = false;
         this.isSpeaking = false;
+
         this.initializeEventListeners();
         this.setupSpeechRecognition();
     }
+
     initializeEventListeners() {
-        this.chatButton.addEventListener('click', () => this.toggleChat(true));
-        this.closeChat.addEventListener('click', () => this.toggleChat(false));
-        this.sendButton.addEventListener('click', () => this.sendMessage());
+        const events = ['click', 'touchstart']; // Support both click & touch for mobile
+        events.forEach(event => {
+            this.chatButton.addEventListener(event, () => this.toggleChat(true));
+            this.closeChat.addEventListener(event, () => this.toggleChat(false));
+            this.sendButton.addEventListener(event, () => this.sendMessage());
+            this.voiceButton.addEventListener(event, () => this.toggleVoiceInput());
+        });
+
         this.messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.sendMessage();
         });
-        this.voiceButton.addEventListener('click', () => this.toggleVoiceInput());
     }
+
     setupSpeechRecognition() {
         if ('webkitSpeechRecognition' in window) {
             this.recognition = new webkitSpeechRecognition();
             this.recognition.continuous = false;
             this.recognition.interimResults = false;
+
             this.recognition.onresult = (event) => {
                 const transcript = event.results[0][0].transcript;
                 this.messageInput.value = transcript;
                 this.isListening = false;
                 this.voiceButton.classList.remove('active');
             };
+
             this.recognition.onend = () => {
                 this.isListening = false;
                 this.voiceButton.classList.remove('active');
             };
+        } else {
+            console.warn("Speech recognition not supported on this device.");
+            this.voiceButton.style.display = "none"; // Hide button if not supported
         }
     }
+
     toggleChat(show) {
         this.chatWindow.classList.toggle('hidden', !show);
         if (show) {
@@ -49,6 +62,7 @@ class ChatApp {
             this.chatWindow.classList.remove('visible');
         }
     }
+
     toggleVoiceInput() {
         if (!this.recognition) {
             console.error('Speech recognition not supported');
@@ -64,39 +78,40 @@ class ChatApp {
             this.voiceButton.classList.add('active');
         }
     }
+
     async sendMessage() {
         const content = this.messageInput.value.trim();
         if (!content) return;
-        // Add user message
+
         this.addMessage(content, 'user');
         this.messageInput.value = '';
-        // Show typing indicator
+
         this.typingIndicator.classList.remove('hidden');
-        // Simulate API delay
+
         await new Promise(resolve => setTimeout(resolve, 1500));
-        // Bot response
+
         const botResponse = `Thanks for your message: "${content}"`;
         this.typingIndicator.classList.add('hidden');
         this.addMessage(botResponse, 'bot');
-        
-        // Speak bot response
+
         this.speakMessage(botResponse);
     }
+
     addMessage(content, sender) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}`;
-        
+
         const contentP = document.createElement('p');
         contentP.className = 'content';
         contentP.textContent = content;
-        
+
         const timeSpan = document.createElement('span');
         timeSpan.className = 'timestamp';
         timeSpan.textContent = new Date().toLocaleTimeString();
-        
+
         messageDiv.appendChild(contentP);
         messageDiv.appendChild(timeSpan);
-        
+
         if (sender === 'bot') {
             const soundButton = document.createElement('button');
             soundButton.className = 'sound-button';
@@ -109,9 +124,14 @@ class ChatApp {
             soundButton.onclick = () => this.speakMessage(content);
             messageDiv.appendChild(soundButton);
         }
+
         this.messagesContainer.appendChild(messageDiv);
-        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+
+        setTimeout(() => {
+            this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+        }, 100);
     }
+
     speakMessage(text) {
         if ('speechSynthesis' in window && !this.isSpeaking) {
             const utterance = new SpeechSynthesisUtterance(text);
@@ -121,10 +141,16 @@ class ChatApp {
             utterance.onend = () => {
                 this.isSpeaking = false;
             };
-            speechSynthesis.speak(utterance);
+
+            if (document.hasFocus()) {
+                speechSynthesis.speak(utterance);
+            } else {
+                console.warn("Speech synthesis blocked until user interaction.");
+            }
         }
     }
 }
+
 // Initialize the chat app when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new ChatApp();
