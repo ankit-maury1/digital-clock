@@ -2,54 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#1a237e">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="description" content="A modern minimalist digital clock with animated circular elements">
-    <title>Minimalist Digital Clock</title>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" type="image/svg+xml" href="/icon-192.svg">
-    <link rel="apple-touch-icon" href="/icon-192.svg">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Assistant</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="clock-container">
-        <div class="clock-wrapper">
-            <div class="clock-element hours">
-                <div class="circle">
-                    <div class="hand hour-hand"></div>
-                    <div class="dot"></div>
-                </div>
-                <div class="label">Hours</div>
-                <div class="value">12</div>
+    <div class="container">
+        <div class="hero">
+            <h1>AI Chat Assistant</h1>
+            <p>Click the chat button to start a conversation</p>
+        </div>
+
+        <!-- Chat Button -->
+        <button id="chatButton" class="chat-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </button>
+
+        <!-- Chat Window -->
+        <div id="chatWindow" class="chat-window hidden">
+            <div class="chat-header">
+                <h3>AI Assistant</h3>
+                <button id="closeChat" class="close-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
             </div>
 
-            <div class="clock-element minutes">
-                <div class="circle">
-                    <div class="hand minute-hand"></div>
-                    <div class="dot"></div>
-                </div>
-                <div class="label">Minutes</div>
-                <div class="value">12</div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will be inserted here -->
             </div>
 
-            <div class="clock-element seconds">
-                <div class="circle">
-                    <div class="hand second-hand"></div>
-                    <div class="dot"></div>
+            <div class="typing-indicator hidden" id="typingIndicator">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+
+            <div class="chat-input">
+                <div class="input-group">
+                    <input type="text" id="messageInput" placeholder="Type a message...">
+                    <button id="voiceInput" class="voice-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" y1="19" x2="12" y2="23"></line>
+                            <line x1="8" y1="23" x2="16" y2="23"></line>
+                        </svg>
+                    </button>
                 </div>
-                <div class="label">Seconds</div>
-                <div class="value">59</div>
+                <button id="sendMessage" class="send-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
             </div>
         </div>
-        <div class="period">PM</div>
     </div>
-    <div class="installation-prompt">
-        Add to Home Screen for the best experience
-    </div>
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
